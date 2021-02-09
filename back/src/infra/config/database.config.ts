@@ -1,13 +1,16 @@
-import { Options } from 'sequelize/types';
+import { ConnectionOptions } from 'typeorm';
 
-const dbConfig: Options = {
-  dialect: 'postgres',
-  host: process.env.DB_HOST || 'climberfish',
+const dbConfig: ConnectionOptions = {
+  type: 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '15432', 10),
   username: process.env.DB_USER || 'climberfish',
   password: process.env.DB_PASS || 'climberfish',
   database: process.env.DB_NAME || 'climberfish',
-  port: 5432,
-  define: { timestamps: true },
+  entities: ['src/domain/models/**/*.ts'],
+  migrations: ['src/infra/db/migrations/**/*.ts'],
+  synchronize: true,
+  logging: false,
 };
 
 export default dbConfig;
