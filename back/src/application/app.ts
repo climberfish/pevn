@@ -1,15 +1,18 @@
 import 'reflect-metadata';
+import cors from 'cors';
+import helmet from 'helmet';
 import express, { Application } from 'express';
 import { json, urlencoded } from 'body-parser';
 import Routes from 'interfaces/routes';
 import dbConnection from 'infra/db';
+import { errorHandler } from 'interfaces/routes/errorHandler';
 
 class App {
-  public app: Application;
+  app: Application;
 
-  public routePrv: Routes = new Routes();
+  routePrv: Routes = new Routes();
 
-  public dbConnection = dbConnection;
+  dbConnection = dbConnection;
 
   constructor() {
     this.app = express();
@@ -18,8 +21,11 @@ class App {
   }
 
   private config(): void {
+    this.app.use(cors());
+    this.app.use(helmet());
     this.app.use(json());
     this.app.use(urlencoded({ extended: false }));
+    this.app.use(errorHandler);
   }
 }
 

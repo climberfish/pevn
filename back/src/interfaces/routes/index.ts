@@ -1,15 +1,13 @@
 import { Application, Router } from 'express';
-import UsersController from 'interfaces/controllers/users.controller';
+import AuthRouter from './auth.router';
+import UserRouter from './users.router';
 
 export default class Routes {
-  public usersController: UsersController = new UsersController();
-
   private router = Router();
 
   public routes(app: Application): void {
-    this.router
-      .route('/users/:userId')
-      .get((req, res) => this.usersController.getById(req, res));
+    this.router.use('/auth', AuthRouter);
+    this.router.use('/users', UserRouter);
     app.use('/api', this.router);
   }
 }

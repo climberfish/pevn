@@ -1,5 +1,3 @@
-import app from 'application/app';
+import { startServer } from 'infra/web/server';
 
-const PORT = process.env.PORT || 4000;
-
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+startServer();

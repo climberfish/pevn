@@ -13,4 +13,7 @@ const dbConfig: ConnectionOptions = {
   logging: false,
 };
 
-export default dbConfig;
+export default {
+  dbConfig,
+  jwtSecret: process.env.JWT_SECRET || 'secret',
+};

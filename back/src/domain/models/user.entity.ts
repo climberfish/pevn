@@ -1,17 +1,52 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Unique,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm';
+import { Length, IsNotEmpty, validate } from 'class-validator';
+import { hashSync, compareSync} from 'bcryptjs';
+import { Role } from 'infra/web/auth/roles';
 
 @Entity()
-export default class User extends BaseEntity {
+@Unique(['username'])
+export default class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
-  firstName!: string;
+  @IsNotEmpty()
+  @Length(4, 20)
+  username!: string;
 
   @Column()
-  lastName!: string;
+  @IsNotEmpty()
+  @Length(8, 100)
+  password!: string;
 
-  public get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
+  @Column({ type: 'enum', enum: Role, default: Role.DEFAULT })
+  @IsNotEmpty()
+  role!: Role;
+
+  @Column()
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @Column()
+  @UpdateDateColumn()
+  updatedAt!: Date;
+
+  hashPassword() {
+    this.password = hashSync(this.password, 8);
+  }
+
+  checkPassword(unencryptedPassword: string) {
+    return compareSync(unencryptedPassword, this.password);
+  }
+
+  validate() {
+    return validate(this);
   }
 }
