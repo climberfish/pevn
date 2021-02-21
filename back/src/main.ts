@@ -1,3 +1,3 @@
-import { startServer } from 'infra/web/server';
+import startServer from 'infra/web/server';
 
 startServer();

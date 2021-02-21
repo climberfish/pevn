@@ -1,4 +1,12 @@
 import User from 'domain/models/user.entity';
-import { Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
-export default class UserRepository extends Repository<User> {}
+// const UserRepository = getRepository(User);
+// export default UserRepository;
+
+export default class UserRepository extends Repository<User> {
+  constructor () {
+    super();
+    console.log((this));
+  }
+}
