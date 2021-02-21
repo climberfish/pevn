@@ -2,6 +2,6 @@ import { Router } from 'express';
 
 const router = Router();
 
-// router.use('/endpoint', EndpointRouter); // Exemplo
+router.get('/health', (req, res) => { res.send('TMJ') });
 
 export default router;
