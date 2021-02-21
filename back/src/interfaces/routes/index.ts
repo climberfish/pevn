@@ -1,13 +1,7 @@
-import { Application, Router } from 'express';
-import AuthRouter from './auth.router';
-import UserRouter from './users.router';
+import { Router } from 'express';
 
-export default class Routes {
-  private router = Router();
+const router = Router();
 
-  public routes(app: Application): void {
-    this.router.use('/auth', AuthRouter);
-    this.router.use('/users', UserRouter);
-    app.use('/api', this.router);
-  }
-}
+// router.use('/endpoint', EndpointRouter); // Exemplo
+
+export default router;
