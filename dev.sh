@@ -51,7 +51,7 @@ function backendrun {
 function frontendrun {
   CD=$(pwd)
   cd $PROJ_BASE"/front"
-  npm run dev
+  npm run serve
   exitcode=$?
   cd $CD
   return $exitcode
