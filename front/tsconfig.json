@@ -11,14 +11,13 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "rootDir": "./",
+    "outDir": "./dist",
     "types": [
-      "webpack-env",
-      "jest"
+      "webpack-env"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
     "lib": [
       "esnext",
@@ -35,6 +34,6 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", "dist"
   ]
 }
